@@ -1,0 +1,81 @@
+Brett = wo alles Farben gespeichert sind
+owned = Farben schon gewonnen 
+
+
+1. erstes bestimmen welche Farben schon gehört, mindestens eins(das erste)
+2. Farbe lesen von der Eingabe des Benutzers
+3. all gehörte Farben zu diser Farbe ändern
+4. Nochmal bestimmmen welche Farben du dem Spieler gehören sein,(Für alle gehörte kisten nach rechts, links, oben und unten suchen) 
+wenn eine neue Kiste kommt such mal nach neuen Kiste nach rechts, Links, oben und Unten
+
+
+kiste(i,j)
+
+
+sucheUndErneue(i,j,farbe){
+
+	//nach rechts
+	for(k=j+1;k<n;k++){
+	 if(brett[i][k]==Farbe)
+             putOwned(i, k)
+         else
+            break; 
+ 
+	}
+
+	//nach links
+	for(k=j-1;k>=0;k--){
+	 if(brett[i][k]==Farbe)
+             putOwned(i, k)
+         else
+            break; 
+	}
+
+
+	//nach oben
+	for(k=i-1;k>=0;k--){
+	 if(brett[k][j]==Farbe)
+             putOwned(k, j)
+         else
+            break; 
+	}
+	 
+
+	//nach unten
+	for(k=i+1;k<n;k++){
+	 if(brett[k][j]==Farbe)
+             putOwned(k, j)
+         else
+            break; 
+	}
+
+}
+
+
+
+sucheAlles(farbe){
+
+	for(i,j: owned)
+	 sucheUndErneue(i,j,farbe);
+}
+
+
+
+feldErneuen(farbe){
+if(!owned){
+putOwned(0,0);
+}
+
+sucheAlles(farbe);
+
+
+//zeichnet das Brett nach dem Felderneune und warte auf der Eingabe
+feldAusgabe();
+}
+
+
+while(eingabe){
+farbe = engabe;
+feldErneuen(farbe);
+
+}
