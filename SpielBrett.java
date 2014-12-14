@@ -3,12 +3,12 @@ import java.util.Random;
 
 
 public class SpielBrett {
-	private char[][] brett;
-	private char[] farben;
-	private int n,f;
+	protected char[][] brett;
+	protected char[] farben;
+	protected int n,f;
 	private String[] indices;
-	private HashMap owned;
-	private boolean newEntry;
+	protected HashMap owned;
+	protected boolean newEntry;
 	
 	
 	SpielBrett(int n,int f){
@@ -94,8 +94,8 @@ public class SpielBrett {
 	 * @param c
 	 */
 	
-	public void ownedChange(char c){
-		 for(Object key: owned.keySet()){
+	public void ownedChange(char c, HashMap h){
+		 for(Object key: h.keySet()){
 	            String s = key.toString();
 	            //System.out.println(s);
 	            int i = Character.getNumericValue(s.charAt(0));	            
@@ -129,29 +129,29 @@ public class SpielBrett {
 		
 	}
 	
-	public boolean ifOwned(int i, int j){
+	public boolean ifOwned(int i, int j, HashMap h){
 		String s= Integer.toString(i).concat(Integer.toString(j));
-		if(owned.containsKey(s))
+		if(h.containsKey(s))
 			return true;
 		return false;
 		
 	}
 	
-	public void putFeld(int i, int j){
+	public void putFeld(int i, int j, HashMap h){
 		String s= Integer.toString(i).concat(Integer.toString(j));
 		//System.out.println(s);
-		owned.put(s, 1);
+		h.put(s, 1);
 	}
 	
 	
-	public void loopThrough(char c){
+	public void loopThrough(char c, HashMap h){
 		//for iterating, becauase owned can be modified while iterating over it
-		HashMap ownedCopy = new HashMap(owned);
+		HashMap ownedCopy = new HashMap(h);
 		 for(Object key: ownedCopy.keySet()){
 	            String s = key.toString();	      
 	            int i = Character.getNumericValue(s.charAt(0));	            
 	            int j = Character.getNumericValue(s.charAt(1));
-	            findeMatch(i,j,c);   
+	            findeMatch(i,j,c, h);   
 
 	        }
      }
@@ -162,14 +162,14 @@ public class SpielBrett {
 	 * @param l
 	 * @param c
 	 */
-	public void findeMatch(int i, int j, char c){		
+	public void findeMatch(int i, int j, char c, HashMap h){		
          int k;
 		newEntry=false;
          //nach rechts
 		for(k=j+1;k<n;k++){
 		    if(brett[i][k]==c){
-			    if(!ifOwned(i,k)){
-	                putFeld(i, k);
+			    if(!ifOwned(i,k, h)){
+	                putFeld(i, k, h);
 	                newEntry=true;
 			    }
 			
@@ -181,8 +181,8 @@ public class SpielBrett {
 		//nach links
 		for(k=j-1;k>=0;k--){
 		    if(brett[i][k]==c){
-			    if(!ifOwned(i,k)){
-	                putFeld(i, k);
+			    if(!ifOwned(i,k, h)){
+	                putFeld(i, k, h);
 	                newEntry=true;
 			    }
 			
@@ -195,8 +195,8 @@ public class SpielBrett {
 		//nach oben
 		for(k=i-1;k>=0;k--){
 		    if(brett[k][j]==c){
-			    if(!ifOwned(k,j)){
-	                putFeld(k, j);
+			    if(!ifOwned(k,j, h)){
+	                putFeld(k, j, h);
 	                newEntry=true;
 			    }
 			
@@ -209,8 +209,8 @@ public class SpielBrett {
 		//nach unten
 		for(k=i+1;k<n;k++){
 		    if(brett[k][j]==c){
-			    if(!ifOwned(k,j)){
-	                putFeld(k, j);
+			    if(!ifOwned(k,j, h)){
+	                putFeld(k, j, h);
 	                newEntry=true;
 			    }
 			
@@ -222,6 +222,40 @@ public class SpielBrett {
 		
 	}
 	
+	
+	public int getSize(HashMap a){
+		return a.size();
+	}
+	
+	
+	public void generateFirst(int i, int j, HashMap h){
+		   if(!ifOwned(i,j, h)){
+			   putFeld(i,j, h);
+		       findeMatch(i,j,brett[i][j], h);
+		   }
+	}
+	
+	
+	public void continueTillNew(char c, HashMap h){
+		
+		   newEntry=true;
+		   
+		   while(newEntry){
+			   loopThrough(c, h);
+		   }
+		   
+		   ownedChange(c, h);
+		   
+
+		   
+		   //testprint
+		   
+		  // printOwned();
+		   
+		   //ende der Erneuen zeig nochmal das brett
+		   feldAusgabe();
+	}
+	
 	/**
 	 * erneuet das feld nach der Farbe
 	 * @param c
@@ -230,30 +264,12 @@ public class SpielBrett {
 		   
 		   
 		   //für erstes mal finde nach der Farbe des ersten Platzes
-		   if(!ifOwned(0,0)){
-			   putFeld(0,0);
-		       findeMatch(0,0,brett[0][0]);
-		   }
-		   
+			generateFirst(0,0,owned);
 		   //wechself alle Farben zu der gegeben Farbe in 
-		    ownedChange(c);
-		   
-		   newEntry=true;
-		   
-		   while(newEntry){
-			   loopThrough(c);
-		   }
-		   
-		   ownedChange(c);
-		   
-
-		   
-		   //testprint
-		   
-		   printOwned();
-		   
-		   //ende der Erneuen zeig nochmal das brett
-		   feldAusgabe();
+		    ownedChange(c, owned);
+		    
+		    continueTillNew(c, owned);
+		  
 		
 	}
 	

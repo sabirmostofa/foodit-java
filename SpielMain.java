@@ -3,14 +3,29 @@ import static Prog1Tools.IOTools.*;
 public class SpielMain {
 	
 	public static void main(String [] args){
-      SpielBrett b = new SpielBrett(10, 4);
+      
+		//test 1
+		/**
+		SpielBrett a = new SpielBrett(10, 4);
       
       while(true){
     	  char input = readChar();    	  
-    	  b.feldErneuen(input);   	  
+    	  a.feldErneuen(input);   	  
     	  
       }
 		
+			*/
+	// Ende test 1
+	
+	
+	//test 2
+		
+		Spiel2 b= new Spiel2(10, 4);
+		b.takeInput();
+
+		
+		// Ende test2
+	
 	}
 	
 
