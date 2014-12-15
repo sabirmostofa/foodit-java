@@ -19,14 +19,19 @@ public class SpielMain {
 	
 	
 	//test 2
-		
+		/**
 		Spiel2 b= new Spiel2(10, 4);
 		b.takeInput();
 
 		
 		// Ende test2
 	
-	}
 	
+	*/
+		
+		//Test 3
+		SpielComputer c = new SpielComputer(10,4);
+		c .startInput();
+	}
 
 }

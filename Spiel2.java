@@ -102,10 +102,10 @@ public class Spiel2 extends SpielBrett {
 	    	  if( isValid(c) ){
 	    	      //if player one is playing  
 	    		  if(p1){ 
-	    			  continueTillNew(c, owned); 	    	        	
+	    			  continueTillNew(c, owned, true); 	    	        	
 	    	        }
 	    	        else{	  
-                      continueTillNew(c, owned2); 	    	        	
+                      continueTillNew(c, owned2, true); 	    	        	
 	    	        }
 	    		  
 	    		  //turn the players at the end

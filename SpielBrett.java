@@ -236,7 +236,7 @@ public class SpielBrett {
 	}
 	
 	
-	public void continueTillNew(char c, HashMap h){
+	public void continueTillNew(char c, HashMap h, boolean show){
 		
 		   newEntry=true;
 		   
@@ -252,7 +252,8 @@ public class SpielBrett {
 		   
 		  // printOwned();
 		   
-		   //ende der Erneuen zeig nochmal das brett
+		   //ende der Erneuen zeig nochmal das brett,
+		   if(show)
 		   feldAusgabe();
 	}
 	
@@ -268,7 +269,7 @@ public class SpielBrett {
 		   //wechself alle Farben zu der gegeben Farbe in 
 		    ownedChange(c, owned);
 		    
-		    continueTillNew(c, owned);
+		    continueTillNew(c, owned, true);
 		  
 		
 	}
