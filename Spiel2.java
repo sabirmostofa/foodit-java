@@ -8,6 +8,10 @@ public class Spiel2 extends SpielBrett {
 	
 	protected HashMap owned2;
 	protected boolean p1, p2;
+	protected int steps;
+	
+	// variable that defines how many steps the two players can choose as same color 
+	protected int sameStep;
 	
 	/**
 	 * Constructor
@@ -20,6 +24,8 @@ public class Spiel2 extends SpielBrett {
 		owned2 = new HashMap();		
 		p1 = true;
 		p2 = false;
+		steps = 0;
+		sameStep = 2;
 		
 	}
 	
@@ -42,19 +48,33 @@ public class Spiel2 extends SpielBrett {
 	}
 	/**
 	 * Decides if the input is valid. Must the same color as the opponent  and must not the same color as he already has.
+	 * Exception for the first two moves, For the first two moves one can choose the color of the opponent
 	 * @param c
 	 * @return
 	 */
 	
 	public boolean isValid(char c){
 		
-		if(p1){
-			if(c != brett[n-1][n-1] && c != brett[0][0])
-				return true;
-			else
-				return false;
+		if(steps < sameStep){
+			
+			if(p1){
+				if(c != brett[0][0])
+					return true;
+				else 
+					return false;
+				
+			}
+			else {
+				if(c != brett[n-1][n-1])
+					return true;
+				else 
+					return false;
+				
+			}
+		
 		}
 		else{
+			
 			if(c != brett[0][0] && c != brett[n-1][n-1])
 				return true;
 			else
@@ -107,10 +127,12 @@ public class Spiel2 extends SpielBrett {
 	    	        else{	  
                       continueTillNew(c, owned2, true); 	    	        	
 	    	        }
+	    		  steps += 1;
 	    		  
 	    		  //turn the players at the end
 	    		  interchange();
 	    		  showResult();
+	    		  
 	    	  }//endof isvalid
 	    	  
 	      }

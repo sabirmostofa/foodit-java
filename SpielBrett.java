@@ -9,6 +9,7 @@ public class SpielBrett {
 	private String[] indices;
 	protected HashMap owned;
 	protected boolean newEntry;
+	protected char eingabe;
 	
 	
 	SpielBrett(int n,int f){
@@ -98,8 +99,9 @@ public class SpielBrett {
 		 for(Object key: h.keySet()){
 	            String s = key.toString();
 	            //System.out.println(s);
-	            int i = Character.getNumericValue(s.charAt(0));	            
-	            int j = Character.getNumericValue(s.charAt(1));
+	            String[] d = s.split(";");
+	            int i = Integer.parseInt(d[0]);	            
+	            int j = Integer.parseInt(d[1]);
 	            
 	            brett[i][j] = c;
 
@@ -107,30 +109,10 @@ public class SpielBrett {
 		
 	}
 	
-	/**
-	 * Test methiod zum owned ausdrucken
-	 * 
-	 */
-	
-	public void printOwned(){
-		 int total = 0;
-		 for(Object key: owned.keySet()){
-			    total +=1;
-	            String s = key.toString();
-	            System.out.println(s);
-	            int i = Character.getNumericValue(s.charAt(0));	            
-	            int j = Character.getNumericValue(s.charAt(1));
-	            System.out.println();
-	     
 
-	        }
-		 
-		 System.out.println(total);
-		
-	}
 	
 	public boolean ifOwned(int i, int j, HashMap h){
-		String s= Integer.toString(i).concat(Integer.toString(j));
+		String s= Integer.toString(i).concat(";"+Integer.toString(j));
 		if(h.containsKey(s))
 			return true;
 		return false;
@@ -138,7 +120,7 @@ public class SpielBrett {
 	}
 	
 	public void putFeld(int i, int j, HashMap h){
-		String s= Integer.toString(i).concat(Integer.toString(j));
+		String s= Integer.toString(i).concat(";"+Integer.toString(j));
 		//System.out.println(s);
 		h.put(s, 1);
 	}
@@ -147,10 +129,13 @@ public class SpielBrett {
 	public void loopThrough(char c, HashMap h){
 		//for iterating, becauase owned can be modified while iterating over it
 		HashMap ownedCopy = new HashMap(h);
+		newEntry=false;
 		 for(Object key: ownedCopy.keySet()){
 	            String s = key.toString();	      
-	            int i = Character.getNumericValue(s.charAt(0));	            
-	            int j = Character.getNumericValue(s.charAt(1));
+	            String[] d = s.split(";");
+	            int i = Integer.parseInt(d[0]);	            
+	            int j = Integer.parseInt(d[1]);
+	            
 	            findeMatch(i,j,c, h);   
 
 	        }
@@ -164,7 +149,7 @@ public class SpielBrett {
 	 */
 	public void findeMatch(int i, int j, char c, HashMap h){		
          int k;
-		newEntry=false;
+		
          //nach rechts
 		for(k=j+1;k<n;k++){
 		    if(brett[i][k]==c){
@@ -208,7 +193,7 @@ public class SpielBrett {
 
 		//nach unten
 		for(k=i+1;k<n;k++){
-		    if(brett[k][j]==c){
+		    if(brett[k][j] == c){
 			    if(!ifOwned(k,j, h)){
 	                putFeld(k, j, h);
 	                newEntry=true;
@@ -229,9 +214,10 @@ public class SpielBrett {
 	
 	
 	public void generateFirst(int i, int j, HashMap h){
+		char c = brett [i][j];
 		   if(!ifOwned(i,j, h)){
 			   putFeld(i,j, h);
-		       findeMatch(i,j,brett[i][j], h);
+		       continueTillNew(c, h, false);
 		   }
 	}
 	
@@ -265,7 +251,8 @@ public class SpielBrett {
 		   
 		   
 		   //für erstes mal finde nach der Farbe des ersten Platzes
-			generateFirst(0,0,owned);
+			//generateFirst(0,0,owned);
+		
 		   //wechself alle Farben zu der gegeben Farbe in 
 		    ownedChange(c, owned);
 		    

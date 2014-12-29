@@ -5,16 +5,27 @@ public class SpielMain {
 	public static void main(String [] args){
       
 		//test 1
-		/**
+		
+		/*
 		SpielBrett a = new SpielBrett(10, 4);
       
+		a.generateFirst(0,0,a.owned);
+	
+		System.out.print("Count: ");
+		System.out.println(a.owned.size());
+		System.out.println();
+		
       while(true){
     	  char input = readChar();    	  
-    	  a.feldErneuen(input);   	  
+    	  a.feldErneuen(input);   	
+    	  System.out.println();
+    	  System.out.print("Count: ");
+    	  System.out.println(a.owned.size());
+    	  System.out.println();
     	  
       }
-		
-			*/
+		*/
+			
 	// Ende test 1
 	
 	
@@ -25,12 +36,12 @@ public class SpielMain {
 
 		
 		// Ende test2
-	
-	
 	*/
+	
+	
 		
 		//Test 3
-		SpielComputer c = new SpielComputer(10,4);
+		SpielComputer c = new SpielComputer(15,5);
 		c .startInput();
 	}
 
