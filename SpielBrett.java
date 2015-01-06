@@ -1,5 +1,8 @@
 import java.util.HashMap;
 import java.util.Random;
+import java.io.*;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
 
 
 public class SpielBrett {
@@ -62,6 +65,13 @@ public class SpielBrett {
 		   }
 	
 	   }
+	   
+	   /*
+	   
+	   ObjectOutputStream oos = new ObjectOutputStream(new FileWriter("NUMBERS.DATA"));
+	   int[][] NUMBERS;  // Populate it.
+	   oos.writeObject(NUMBERS);
+	   */
 	}
 	
 	/**

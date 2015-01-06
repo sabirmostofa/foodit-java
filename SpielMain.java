@@ -6,8 +6,9 @@ public class SpielMain {
       
 		//test 1
 		
+		
 		/*
-		SpielBrett a = new SpielBrett(10, 4);
+		SpielBrett a = new SpielBrett(15, 5);
       
 		a.generateFirst(0,0,a.owned);
 	
@@ -24,7 +25,8 @@ public class SpielMain {
     	  System.out.println();
     	  
       }
-		*/
+      */
+		
 			
 	// Ende test 1
 	
@@ -41,8 +43,10 @@ public class SpielMain {
 	
 		
 		//Test 3
+		 
 		SpielComputer c = new SpielComputer(15,5);
-		c .startInput();
+		c.startInput();
+		
 	}
 
 }
