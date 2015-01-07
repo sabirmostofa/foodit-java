@@ -336,8 +336,8 @@ public class Test {
 	 */
 	
 	public static char [][] arCopy(char[][] old, char[][] current){
-		for(int i=0; i<old.length; i++)
-			  for(int j=0; j<old[i].length; j++)
+		for(int i=0; i<current.length; i++)
+			  for(int j=0; j<current[i].length; j++)
 			    old[i][j]=current[i][j];
 		
 		return old;

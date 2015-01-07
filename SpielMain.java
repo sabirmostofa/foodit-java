@@ -10,7 +10,7 @@ public class SpielMain {
 		/*
 		SpielBrett a = new SpielBrett(15, 5);
       
-		a.generateFirst(0,0,a.owned);
+
 	
 		System.out.print("Count: ");
 		System.out.println(a.owned.size());

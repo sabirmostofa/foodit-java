@@ -26,6 +26,7 @@ public class Spiel2 extends SpielBrett {
 		p2 = false;
 		steps = 0;
 		sameStep = 2;
+		generateFirst(n-1, n-1, owned2);
 		
 	}
 	
@@ -110,34 +111,39 @@ public class Spiel2 extends SpielBrett {
 	 */
 	
 	public void takeInput(){
-		// find the owned boxes at start
-		generateFirst(0, 0, owned);
-		generateFirst(n-1, n-1, owned2);
+		
+
 		
 	      while(true){	    	  
 	    	  showTurn();	    	  
 	    	  char c = readChar();
+	    	  startGame2(c);
 	    	  
-	    	  // only runs if valid c else doesnt do anything
-	    	  if( isValid(c) ){
-	    	      //if player one is playing  
-	    		  if(p1){ 
-	    			  continueTillNew(c, owned, true); 	    	        	
-	    	        }
-	    	        else{	  
-                      continueTillNew(c, owned2, true); 	    	        	
-	    	        }
-	    		  steps += 1;
-	    		  
-	    		  //turn the players at the end
-	    		  interchange();
-	    		  showResult();
-	    		  
-	    	  }//endof isvalid
+	    	  
+
 	    	  
 	      }
 		
 	}
+	
+public void startGame2(Character c){
+	// only runs if valid c else doesnt do anything
+	  if( isValid(c) ){
+	      //if player one is playing  
+		  if(p1){ 
+			  continueTillNew(c, owned, true); 	    	        	
+	        }
+	        else{	  
+              continueTillNew(c, owned2, true); 	    	        	
+	        }
+		  steps += 1;
+		  
+		  //turn the players at the end
+		  interchange();
+		  showResult();
+		  
+	  }//endof isvalid
+                                    }
 	
 	
 	

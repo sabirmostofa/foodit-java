@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 
 
 public class SpielBrett {
-	protected char[][] brett;
+	public char[][] brett;
 	protected char[] farben;
 	protected int n,f;
 	private String[] indices;
@@ -25,6 +25,7 @@ public class SpielBrett {
 		
 		generateFarben(f);
 		feldGenerate(n,f);
+		generateFirst(0, 0, owned);
 		feldAusgabe();
 		
 	}
