@@ -3,12 +3,17 @@ import static Prog1Tools.IOTools.readChar;
 import java.util.HashMap;
 
 
+/**
+ * Class that implements 1 vs 1 game
+ * @author cacophonix
+ *
+ */
 public class Spiel2 extends SpielBrett {
 	
 	
 	protected HashMap owned2;
 	protected boolean p1, p2;
-	protected int steps;
+	
 	
 	// variable that defines how many steps the two players can choose as same color 
 	protected int sameStep;
@@ -24,7 +29,7 @@ public class Spiel2 extends SpielBrett {
 		owned2 = new HashMap();		
 		p1 = true;
 		p2 = false;
-		steps = 0;
+		
 		sameStep = 2;
 		generateFirst(n-1, n-1, owned2);
 		

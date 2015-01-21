@@ -4,7 +4,11 @@ import java.io.*;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 
-
+/**
+ * Class to implement the playing board
+ * @author cacophonix
+ *
+ */
 public class SpielBrett {
 	public char[][] brett;
 	protected char[] farben;
@@ -13,6 +17,7 @@ public class SpielBrett {
 	protected HashMap owned;
 	protected boolean newEntry;
 	protected char eingabe;
+	public int steps;
 	
 	
 	SpielBrett(int n,int f){
@@ -22,6 +27,7 @@ public class SpielBrett {
 		farben = new char[f];
 		indices = new String[n*n];
 		owned = new HashMap();
+		steps = 0;
 		
 		generateFarben(f);
 		feldGenerate(n,f);
@@ -259,15 +265,12 @@ public class SpielBrett {
 	 * @param c
 	 */
 	public void feldErneuen(char c){		  
-		   
-		   
-		   //für erstes mal finde nach der Farbe des ersten Platzes
-			//generateFirst(0,0,owned);
-		
+
 		   //wechself alle Farben zu der gegeben Farbe in 
 		    ownedChange(c, owned);
 		    
 		    continueTillNew(c, owned, true);
+		    steps +=1;
 		  
 		
 	}

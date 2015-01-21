@@ -3,7 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*; 
 import java.util.*;
+import java.awt.font.TextAttribute;
 
+/**
+ * Class that generates the gui window for the game
+ * @author cacophonix
+ *
+ */
 public class Window extends JFrame implements ActionListener {
 	
 	
@@ -12,11 +18,13 @@ public class Window extends JFrame implements ActionListener {
 	public Spiel2 two;
 	public SpielComputer com;
 	
+   JLabel l1,l2,l3,l4,l5;
 	
 	
-	WindowGame choose;
-	Color[] colors = {Color.red, Color.blue, Color.green, Color.yellow, Color.magenta};
-	Character[] chars = {'A', 'B', 'C', 'D', 'E'}; 
+	
+	Main choose;
+	Color[] colors = {Color.red, Color.blue, Color.green, Color.yellow, Color.magenta, Color.cyan};
+	Character[] chars = {'A', 'B', 'C', 'D', 'E', 'F'}; 
 	HashMap<Character, Color> colorMap= new HashMap<Character, Color>();
 	
 	/**
@@ -44,7 +52,7 @@ public class Window extends JFrame implements ActionListener {
 		 colors = Arrays.copyOfRange(colors, 0, numColors);
 		 
 		 
-		 // generate colorMap // a hashmap with key valu pairs
+		 // generate colorMap // a hashmap with key value pairs
 		 for(int i=0; i < colors.length ; i++){
 			 colorMap.put(chars[i],colors[i]);
 		 }
@@ -71,25 +79,136 @@ public class Window extends JFrame implements ActionListener {
 		
 		 
 		 
-		 //Adding buttons for color;
-		
-		 /*
-		 int i = 0;
-		 for(Color color: colors){			 
-			    JButton button = new JButton();
-			    button.setBackground(color);
-	            button.addActionListener(this);
-	            add(button);  //same as self.add(button)
-	            button.setBounds(100+i*100, 80, 100, 40);
-			    i+=1;
-		 }
+    //initializ labels
+		 l1 = new JLabel();
+		 l2 = new JLabel();
+		 l3 = new JLabel();
+		 l4 = new JLabel();
+		 l5 = new JLabel();
 		 
-		 */
-
-		 
-		 Color[] colors = {Color.red, Color.blue, Color.green, Color.yellow, Color.magenta};
 		
-   // repaint();
+	}
+	
+	public int getMaxSteps(){
+		
+		switch(numColors){
+		case 3:
+			switch(numBoxes){
+			case 10:
+				return 7;
+			case 15:
+				return 12;
+			case 20:
+				return 15;
+			case 25:
+				return 18;
+			
+			}
+			
+		case 4:
+			switch(numBoxes){
+			case 10:
+				return 10;
+			case 15:
+				return 15;
+			case 20:
+				return 18;
+			case 25:
+				return 20;
+			
+			}
+		case 5:
+			switch(numBoxes){
+			case 10:
+				return 15;
+			case 15:
+				return 20;
+			case 20:
+				return 27;
+			case 25:
+				return 35;
+			
+			}
+		case 6:
+			switch(numBoxes){
+			case 10:
+				return 18;
+			case 15:
+				return 25;
+			case 20:
+				return 35;
+			case 25:
+				return 45;
+			
+			}
+				
+		
+		}
+		
+		return 0;
+		
+	}
+	
+	public void addScore(){		
+		// scores 
+		l1.setText("Score");
+		add(l1);
+		Font font = new Font(l1.getName(), Font.BOLD, 20);
+		Map attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		l1.setFont(font.deriveFont(attributes));
+		
+		l1.setBounds(50,300, 130, 25);
+		
+		
+		String s, s2;
+		s = "";
+		s2 = "";
+		
+		switch(gameType){
+		// single game
+		case 1:
+			
+			s += single.steps + "/" + getMaxSteps();
+			l2.setText(s);
+			l2.setFont(new Font(l2.getName(), Font.BOLD, 18));
+			add(l2);
+			l2.setBounds(50,330, 200, 40);
+		// 1 vs 1	
+		case 2:
+			s += "Player 1: " + two.owned.size() ;
+			s2 += "Player 2: " + two.owned2.size() ;
+			
+			l2.setText(s);
+			l2.setFont(new Font(l2.getName(), Font.BOLD, 18));
+			add(l2);
+			l2.setBounds(50,330, 200, 40);
+			
+			l3.setText(s2);
+			l3.setFont(new Font(l3.getName(), Font.BOLD, 18));
+			add(l3);
+			l3.setBounds(50,355, 200, 40);
+			
+		case 3:
+			
+			s += "Player 1: " + com.owned.size() ;
+			s2 += "Computer: " + com.owned2.size() ;
+			
+			l2.setText(s);
+			l2.setFont(new Font(l2.getName(), Font.BOLD, 18));
+			add(l2);
+			l2.setBounds(50,330, 200, 40);
+			
+			l3.setText(s2);
+			l3.setFont(new Font(l3.getName(), Font.BOLD, 18));
+			add(l3);
+			l3.setBounds(50,355, 200, 40);
+			
+			
+		
+		}
+		
+		
 		
 	}
 	
@@ -110,7 +229,7 @@ public class Window extends JFrame implements ActionListener {
 			    button.setBackground(color);
 	            button.addActionListener(new Action(i));
 	            add(button);  //same as self.add(button)
-	            button.setBounds(20+i*80, 10, 80, 60);
+	            button.setBounds(300+i*80, 10, 80, 60);
 			    i+=1;
 		 }
 		 
@@ -122,6 +241,7 @@ public class Window extends JFrame implements ActionListener {
 		 case 1:
 			 
 			 Test.arCopy(board, single.brett);
+			 
 			
 			break;
 			 
@@ -138,12 +258,12 @@ public class Window extends JFrame implements ActionListener {
 		 }
 		
 		
-		int maxWidth = 625;
-		int maxHeight = 625;
+		int maxWidth = 600;
+		int maxHeight = 600;
 		int width= maxWidth / numBoxes;
 		int height= width;
 		int paddx = 300 ;
-		int paddy = 90 ;
+		int paddy = 130 ;
 		for(int x=0;x<numBoxes;x++)
 		{
 		    for(int y=0;y<numBoxes;y++)
@@ -158,6 +278,8 @@ public class Window extends JFrame implements ActionListener {
 		    }
 		}
 		
+	
+		addScore();
 		
 	}
 	
@@ -179,7 +301,7 @@ public class Window extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			
 			//pressed on any colors
-			if(actionVar < 5){
+			if(actionVar < 6){
 				
 				Character selected = chars[actionVar];
 				
@@ -226,7 +348,7 @@ public class Window extends JFrame implements ActionListener {
 	}
 	
 	public static void main(String args[]){
-		WindowGame choose = new WindowGame();
+		Main choose = new Main();
 		
 		
 	    //win.setVisible(false);
